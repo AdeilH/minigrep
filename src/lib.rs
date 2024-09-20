@@ -81,4 +81,28 @@ Trust me.";
 
         assert_eq!(vec!["Rust:", "Trust me."], search_case_insensitive(query, contents));
     }
+
+    #[test]
+    fn test_vector(){
+        let mut list = vec![1 , 5, 7, 8];
+        for i in &list{
+            println!("{i}");
+        }
+        list.sort();
+        for i in &list{
+            println!("{i}");
+        }
+
+        let zzz = vec![1, 3 ,5 ,7];
+        let yyy = vec![2, 4, 6, 8];
+        let zip_test: Vec<_> = zzz
+        .iter()
+        .zip(yyy)
+        .map(|(x, y)| x + y as i32).collect();
+
+        for i in &zip_test{
+            println!("{i}");
+        }
+    }
+
 }
