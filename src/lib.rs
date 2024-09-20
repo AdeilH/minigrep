@@ -1,4 +1,4 @@
-use std::{fs, error::Error};
+use std::{env, fs, error::Error};
 
 pub struct Config{
     pub query: String,
@@ -11,7 +11,12 @@ impl Config {
         if args.len() < 3 {
             return Err("Not Enough Arguments");
         }
-        Ok(Config{query: args[1].clone(), file_path: args[2].clone(), ignore_case: false})
+        let ignore_case = env::var("IGNORE_CASE").is_ok();
+        Ok(Config{
+            query: args[1].clone(), 
+            file_path: args[2].clone(), 
+            ignore_case: ignore_case,
+        })
     }
 }
 
