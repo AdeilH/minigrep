@@ -10,10 +10,24 @@ fn main() {
         process::exit(1);
     });
 
-    println!("{}", &config.query);
+    let query = config.query.clone();
 
-    if let Err(e) = minigrep::run(config){
-        println!("Application Error: {}", e);
-        process::exit(1);
+    let contents = match minigrep::run(&config){
+        Ok(content) => content,
+        Err(e) => {
+            println!("Application Error: {} ", e);
+            process::exit(1);
+        },
+    };
+
+    let results: Vec<&str> = if config.ignore_case { 
+        minigrep::search_case_insensitive(&query, &contents)
+    }else {
+        minigrep::search(&query, &contents)
+    };
+    
+    for line in results{
+        println!("{line}");
     }
+
 }
